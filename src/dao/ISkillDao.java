@@ -1,6 +1,5 @@
 package dao;
 import java.util.List;
-
 import model.Skill;
 
 public interface ISkillDao {
@@ -10,5 +9,6 @@ public interface ISkillDao {
 	void updateSkill(Skill sk);
 	void deactivateSkill(Skill sk);
 	void deleteSkill(int id);
+	Skill checkLogin(String SkillId, String password);
 
 }

@@ -13,6 +13,31 @@ public class JobDaolmpl implements IJobDao {
 		//Opened connection
 		conn=JDBCConnection.getDBConnection();
 	}
+	public Job checkLogin(String JobId, String password) {
+		Job jb=new Job();
+		try{
+			PreparedStatement pst=conn.prepareStatement("select * from Job where JobId=? and password=?");
+			pst.setString(1, JobId);
+			pst.setString(2, password);
+			ResultSet rst=pst.executeQuery();
+			if(rst!=null) {
+				if(rst.next()) {
+					jb.setJobId(rst.getInt(1));
+					jb.setJobTitle(rst.getString(2));
+					jb.setJobDescription(rst.getString(3));
+					jb.setcompanyName(rst.getString(4));
+					jb.setLocation(rst.getString(5));
+					jb.setkeySkill(rst.getString(6));
+					jb.setsalary(rst.getString(7));
+					jb.setActive(rst.getString(8));
+				}
+			}
+		}
+		catch(SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+		return jb;
+	}
 
 	@Override
 	public List<Job> getAllJobs() {

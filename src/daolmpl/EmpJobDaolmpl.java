@@ -14,6 +14,27 @@ public class EmpJobDaolmpl implements IEmpJobDao {
 		//Opened connection
 		conn=JDBCConnection.getDBConnection();
 	}
+	public EmpJob checkLogin(String EJId, String password) {
+		EmpJob ej=new EmpJob();
+		try{
+			PreparedStatement pst=conn.prepareStatement("select * from EmpJob where EJId=? and password=?");
+			pst.setString(1, EJId);
+			pst.setString(2, password);
+			ResultSet rst=pst.executeQuery();
+			if(rst!=null) {
+				if(rst.next()) {
+					ej.setEJId(rst.getInt(1));
+					ej.setEmployeeId(rst.getString(2));
+					ej.setJobId(rst.getString(3));
+					ej.setRecruited(rst.getString(4));
+				}
+			}
+		}
+		catch(SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+		return ej;
+	}
 
 	@Override
 	public List<EmpJob> getAllEmpJobs() {

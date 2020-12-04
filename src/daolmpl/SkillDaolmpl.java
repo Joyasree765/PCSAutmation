@@ -14,6 +14,27 @@ public class SkillDaolmpl implements ISkillDao {
 		//Opened connection
 		conn=JDBCConnection.getDBConnection();
 	}
+	public Skill checkLogin(String SkillId, String password) {
+		Skill sk=new Skill();
+		try{
+			PreparedStatement pst=conn.prepareStatement("select * from Skill where SkillId=? and password=?");
+			pst.setString(1, SkillId);
+			pst.setString(2, password);
+			ResultSet rst=pst.executeQuery();
+			if(rst!=null) {
+				if(rst.next()) {
+					sk.setskillId(rst.getInt(1));
+					sk.setskillName(rst.getString(2));
+					sk.setskillDescription(rst.getString(3));
+					sk.setActive(rst.getString(8));
+				}
+			}
+		}
+		catch(SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+		return sk;
+	}
 
 	@Override
 	public List<Skill> getAllSkills() {

@@ -1,5 +1,6 @@
 package controller;
 import java.io.*;
+
 import java.sql.*;
 import java.util.List;
 
@@ -12,7 +13,10 @@ public class JobController {
 	public  JobController() throws ClassNotFoundException, SQLException{
 		jbDao=new JobDaolmpl();
 	}
-	
+	public Job checkLogin(String JobId,String password) {
+		Job jb=jbDao.checkLogin(JobId, password);
+		return jb;
+	}
 	public void addJob() {
 		Job jb=new Job();
 		try {

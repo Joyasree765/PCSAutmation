@@ -1,0 +1,77 @@
+Employee:
+=======================================
+use pcsdb;
+create table Employee(
+empId int auto_increment,
+FristName varchar(30)not null,
+LastName varchar(30) not null,
+UserId varchar(30)not null,
+Password varchar(20)not null,
+Role varchar(3)not null,
+Gender varchar(10)not null,
+Active varchar(10)not null,
+primary key(empId)
+);
+insert into Employee(FristName, LastName,UserId,Password,Role,Gender,Active) 
+values("Lopamudra","Bera","lopa123","pass@123","HRA","Female","Active")
+select*from Employee;
+
+Skill:
+=============================
+use pcsdb;
+create table Skill(
+SkillId int auto_increment,
+SkillName varchar(30) not null,
+SkillDescription varchar(40) not null,
+Active varchar(10) not null,
+primary key(SkillId)
+);
+insert into Skill(SkillName,SkillDescription,Active)
+values("Customer service","Motivation","Active")
+select*from Skill
+
+Job:
+==============================
+create table Job(
+JobId int auto_increment,
+Jobtitle varchar(30) not null,
+JobDescription varchar (40) not null,
+companyName varchar (30) not null,
+Location varchar(30) not null,
+keySkill varchar(20) not null,
+Salary varchar (30) not null,
+Active varchar(30) not null,
+primary key(JobId)
+);
+insert into Job(JobTitle,Jobdescription,companyName,Location,keySkill,salary,Active)
+values("project Manager","self confidance","TCS","SaltLak","Managment","24000","Active")
+select*from Job
+
+
+EmpSkill:
+================================
+use pcsdb;
+create table EmpSkill(
+ESId int auto_increment,
+EmployeeId varchar(30) not null,
+SkillId varchar(20) not null,
+ExpYear varchar(30) not null,
+primary key(ESId)
+);
+insert into EmpSkill(EmployeeId,SkillId,expYear)
+values("3401","436","30/12/2020")
+select*from EmpSkill
+
+EmpJob:
+========================================
+use pcsdb;
+create table EmpJob(
+EJId int auto_increment,
+EmployeeId varchar(30) not null,
+JobId varchar (20) not null,
+Recruited varchar(30) not null,
+primary key(EJId)
+);
+insert into EmpJob(EmployeeId,JobId,Recruited)
+values("4501","053","Professional Associations")
+select *from EmpJob;

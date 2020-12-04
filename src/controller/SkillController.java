@@ -13,6 +13,10 @@ public class SkillController {
 	public  SkillController() throws ClassNotFoundException, SQLException{
 		skDao=new SkillDaolmpl();
 	}
+	public Skill checkLogin(String SkillId,String password) {
+		Skill sk=skDao.checkLogin(SkillId, password);
+		return sk;
+	}
 	
 	public void addSkill() {
 		Skill sk=new Skill();

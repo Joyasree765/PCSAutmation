@@ -11,9 +11,34 @@ import model.Employee;
 
 public class EmployeeDaolmpl implements IEmployeeDao {
 	Connection conn=null;
-	public  EmployeeDaolmpl() throws ClassNotFoundException, SQLException{
+	public EmployeeDaolmpl() throws ClassNotFoundException, SQLException{
 		//Opened connection
 		conn=JDBCConnection.getDBConnection();
+	}
+	public Employee checkLogin(String userId, String password) {
+		Employee emp=new Employee();
+		try{
+			PreparedStatement pst=conn.prepareStatement("select * from Employee where userId=? and password=?");
+			pst.setString(1, userId);
+			pst.setString(2, password);
+			ResultSet rst=pst.executeQuery();
+			if(rst!=null) {
+				if(rst.next()) {
+					emp.setEmpId(rst.getInt(1));
+					emp.setFirstName(rst.getString(2));
+					emp.setLastName(rst.getString(3));
+					emp.setUserId(rst.getString(4));
+					emp.setPassword(rst.getString(5));
+					emp.setRole(rst.getString(6));
+					emp.setGender(rst.getString(7));
+					emp.setActive(rst.getString(8));
+				}
+			}
+		}
+		catch(SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+		return emp;
 	}
 	@Override
 	public List<Employee> getAllEmployees() {
@@ -73,12 +98,11 @@ public class EmployeeDaolmpl implements IEmployeeDao {
 	public Employee getEmployeeById(int id) {
 		Employee emp=new Employee();
 		try{
-			PreparedStatement pst=conn.prepareStatement("select*from Employee where empId=?");
+			PreparedStatement pst=conn.prepareStatement("select * from Employee where empId=?");
 			pst.setInt(1, id);
 			ResultSet rst=pst.executeQuery();
 			if(rst!=null) {
-				while(rst.next()) {
-					emp=new Employee();
+				if(rst.next()) {
 					emp.setEmpId(rst.getInt(1));
 					emp.setFirstName(rst.getString(2));
 					emp.setLastName(rst.getString(3));
@@ -87,7 +111,6 @@ public class EmployeeDaolmpl implements IEmployeeDao {
 					emp.setRole(rst.getString(6));
 					emp.setGender(rst.getString(7));
 					emp.setActive(rst.getString(8));
-					//lEmpList.add(emp); //2
 				}
 			}
 		}
@@ -95,7 +118,6 @@ public class EmployeeDaolmpl implements IEmployeeDao {
 			System.out.println(ex.getMessage());
 		}
 		return emp;
-		//turn null;
 	}
 
 	@Override
@@ -116,11 +138,10 @@ public class EmployeeDaolmpl implements IEmployeeDao {
 		catch(SQLException ex) {
 			System.out.println(ex.getMessage());
 		}	
-		
 	}
 
 	@Override
-	public void deactivateEmployee( Employee emp) {
+	public void deactivateEmployee(Employee emp) {
 		try {
 			//creating PreparedStatement object by passing query string
 			PreparedStatement pst=conn.prepareStatement("update Employee set Active=? where EmpId=?");
@@ -159,8 +180,5 @@ public class EmployeeDaolmpl implements IEmployeeDao {
 		}	
 		
 	}
-
-
-
 
 }

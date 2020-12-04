@@ -3,6 +3,7 @@ import java.util.List;
 
 import model.Job;
 
+
 public interface IJobDao {
 	List<Job> getAllJobs();
 	void addJob(Job jb);
@@ -10,5 +11,6 @@ public interface IJobDao {
 	void updateJob(Job jb);
 	void deactivateJob(Job jb);
 	void deleteJob(int id);
+	Job checkLogin(String JobId, String password);
 
 }

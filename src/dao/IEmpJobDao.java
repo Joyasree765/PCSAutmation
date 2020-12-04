@@ -1,8 +1,6 @@
 package dao;
 import java.util.List;
-
 import model.EmpJob;
-
 
 public interface IEmpJobDao {
 	List<EmpJob> getAllEmpJobs();
@@ -11,6 +9,7 @@ public interface IEmpJobDao {
 	void updateEmpJob(EmpJob ej);
 	void deactivateEmpJob(EmpJob ej);
 	void deleteEmpJob(int id);
+	EmpJob checkLogin(String userId, String password);
 	
 
 }

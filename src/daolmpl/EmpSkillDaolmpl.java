@@ -13,6 +13,27 @@ public class EmpSkillDaolmpl implements IEmpSkillDao {
 		//Opened connection
 		conn=JDBCConnection.getDBConnection();
 	}
+	public EmpSkill checkLogin(String ESId, String password) {
+		EmpSkill es=new EmpSkill();
+		try{
+			PreparedStatement pst=conn.prepareStatement("select * from EmpSkill where ESId=? and password=?");
+			pst.setString(1, ESId);
+			pst.setString(2, password);
+			ResultSet rst=pst.executeQuery();
+			if(rst!=null) {
+				if(rst.next()) {
+					es.setESId(rst.getInt(1));
+					es.setEmployeeId(rst.getString(2));
+					es.setSkillId(rst.getString(3));
+					es.setExpYear(rst.getString(4));
+				}
+			}
+		}
+		catch(SQLException ex) {
+			System.out.println(ex.getMessage());
+		}
+		return es;
+	}
 
 	@Override
 	public List<EmpSkill> getAllEmpSkills() {

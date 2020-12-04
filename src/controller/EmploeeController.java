@@ -1,5 +1,6 @@
 package controller;
 import java.io.*;
+
 import java.sql.*;
 import java.util.List;
 
@@ -10,8 +11,12 @@ import model.Employee;
 
 public class EmploeeController {
 	IEmployeeDao empDao=null;
-	public  EmploeeController() throws ClassNotFoundException, SQLException{
+	public EmploeeController() throws ClassNotFoundException, SQLException{
 		empDao=new EmployeeDaolmpl();
+	}
+	public Employee checkLogin(String userId,String password) {
+		Employee emp=empDao.checkLogin(userId, password);
+		return emp;
 	}
 	
 	public void addEmployee() {
@@ -52,6 +57,7 @@ public class EmploeeController {
 			System.out.println(emp);
 		}
 	}
+	
 	public void getEmployeeById() {
 		try {
 			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
@@ -114,6 +120,5 @@ public class EmploeeController {
 			System.out.println(ex.getMessage());
 		}
 	}
-
 
 }
