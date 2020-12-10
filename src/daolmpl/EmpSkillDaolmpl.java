@@ -1,5 +1,6 @@
 package daolmpl;
 import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,108 +10,95 @@ import model.EmpSkill;
 
 public class EmpSkillDaolmpl implements IEmpSkillDao {
 	Connection conn=null;
-	public EmpSkillDaolmpl() throws ClassNotFoundException, SQLException{
-		//Opened connection
+	public EmpSkillDaolmpl() throws ClassNotFoundException,SQLException
+	{
 		conn=JDBCConnection.getDBConnection();
 	}
-	public EmpSkill checkLogin(String ESId, String password) {
-		EmpSkill es=new EmpSkill();
-		try{
-			PreparedStatement pst=conn.prepareStatement("select * from EmpSkill where ESId=? and password=?");
-			pst.setString(1, ESId);
-			pst.setString(2, password);
-			ResultSet rst=pst.executeQuery();
-			if(rst!=null) {
-				if(rst.next()) {
-					es.setESId(rst.getInt(1));
-					es.setEmployeeId(rst.getString(2));
-					es.setSkillId(rst.getString(3));
-					es.setExpYear(rst.getString(4));
-				}
-			}
-		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
-		return es;
-	}
-
 	@Override
-	public List<EmpSkill> getAllEmpSkills() {
-		List<EmpSkill> allEmpSkillList=new ArrayList<EmpSkill>();
-		try{
+	public List<EmpSkill> getAllSkills() {
+		List<EmpSkill>allEmpSkList =new ArrayList<EmpSkill>();
+		try
+		{
 			Statement stmt=conn.createStatement();
-			ResultSet rst=stmt.executeQuery("select * from EmpSkill");
-			if(rst!=null) {
-				EmpSkill es=null;
-				while(rst.next()) {
-					es=new EmpSkill();
-					es.setESId(rst.getInt(1));
-					es.setEmployeeId(rst.getString(2));
-					es.setSkillId(rst.getString(3));
-					es.setExpYear(rst.getString(4));
-					allEmpSkillList.add(es); 
+			ResultSet rst=stmt.executeQuery("Select * from EmpSkill");
+			if(rst!=null)
+			{
+				EmpSkill emps=null;
+				while(rst.next())
+				{emps=new EmpSkill();
+					emps.setESId(rst.getInt(1));
+					emps.setEmployeeId(rst.getInt(2));
+					emps.setESId(rst.getInt(3));
+					emps.setExpYear(rst.getInt(4));
+				
+					allEmpSkList.add(emps);
 				}
 			}
 		}
-		catch(SQLException ex) {
+		catch(SQLException ex)
+		{
 			System.out.println(ex.getMessage());
 		}
-		return allEmpSkillList;
+		return allEmpSkList;	
+		
 	}
-
 	@Override
-	public void addEmpSkill(EmpSkill es) {
+	public void addSkills(EmpSkill emps) {
 		try {
-			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("insert into EmpSkill(EmployeeId, SkillId,ExpYear) values(?,?,?)");
-			pst.setString(1, es.getEmployeeId());
-			pst.setString(2, es.getSkillId());
-			pst.setString(3, es.getExpYear());
-			int i=pst.executeUpdate();
-			if(i==1){
-				System.out.println("1 record inserted...");
-			}
-			else {
-				System.out.println("insertion failed...");
-			}
-		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
+			PreparedStatement pst=conn.prepareStatement("Insert into EmpSkill(EmployeeId,SkillId,ExpYear) values(?,?,?)");
+			pst.setInt(1,emps.getEmployeeId());
+			pst.setInt(2,emps.getSkillId());
+			pst.setFloat(3,emps.getExpYear());
 		
+			int i=pst.executeUpdate();
+			
+			if(i==1)
+			{
+				System.out.println("1 record inserted");
+			}
+			else
+			{
+				System.out.println("Insertion failed...");
+			}
+		}
+			catch(SQLException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
 		
 	}
-
 	@Override
-	public EmpSkill getEmpSkillById(int id) {
-		EmpSkill es=new EmpSkill();
-		try{
-			PreparedStatement pst=conn.prepareStatement("select * from EmpSkill where esId=?");
+	public EmpSkill getSkillById(int id) {
+		EmpSkill emps=new EmpSkill();
+		try
+		{
+			PreparedStatement pst=conn.prepareStatement("Select * from EmpSkill where ESId=?");
 			pst.setInt(1, id);
 			ResultSet rst=pst.executeQuery();
-			if(rst!=null) {
-				if(rst.next()) {
-					es.setESId(rst.getInt(1));
-					es.setEmployeeId(rst.getString(2));
-					es.setSkillId(rst.getString(3));
-					es.setExpYear(rst.getString(4));
+			if(rst!=null)
+			{
+				if(rst.next())
+				{
+					emps.setESId(rst.getInt(1));
+					emps.setEmployeeId(rst.getInt(2));
+					emps.setESId(rst.getInt(3));
+					emps.setExpYear(rst.getInt(4));
 				}
 			}
 		}
-		catch(SQLException ex) {
+		catch(SQLException ex)
+		{
 			System.out.println(ex.getMessage());
-		}
-		return es;
+		}	
+		return emps;
 	}
-
 	@Override
-	public void updateEmpSkill(EmpSkill es) {
+	public void updateSkill(EmpSkill emp) {
 		try {
 			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("update EmpSkill set EmployeeId=? where esId=?");
-			pst.setString(1, es.getEmployeeId());
-			pst.setInt(2, es.getESId());
+			PreparedStatement pst=conn.prepareStatement("update EmpSkill set ExpYear=? where ESId=?");
+			pst.setInt(1, emp.getExpYear());
+			pst.setInt(2, emp.getESId());
 			int i=pst.executeUpdate();
 			if(i==1){
 				System.out.println("1 record updated...");
@@ -124,46 +112,31 @@ public class EmpSkillDaolmpl implements IEmpSkillDao {
 		}	
 		
 	}
-
+		
+	//public void deactivateSkill(int id) {
+		// TODO Auto-generated method stub
+		
+	//}
 	@Override
-	public void deactivateEmpSkill(EmpSkill es) {
+	public void deleteSkill(int id) {
 		try {
-			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("update EmpSkill set ExpYear=? where ESId=?");
-			pst.setString(1, "Deactive");
-			pst.setInt(2, es.getESId());
+			PreparedStatement pst=conn.prepareStatement("Delete from EmpSkill where ESId=?");
+			pst.setInt(1,id);
 			int i=pst.executeUpdate();
-			if(i==1){
-				System.out.println("EmpSkill deactivated...");
+			
+			if(i==1)
+			{
+				System.out.println("EmpSkill Deleted");
 			}
-			else {
-				System.out.println("updation failed...");
+			else
+			{
+				System.out.println("Deletion failed...");
 			}
 		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}	
+			catch(SQLException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
 		
 	}
-
-	@Override
-	public void deleteEmpskill(int id) {
-		try {
-			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("delete from EmpSkill where ESId=?");
-			pst.setInt(1, id);
-			int i=pst.executeUpdate();
-			if(i==1){
-				System.out.println("EmpSkill deleted...");
-			}
-			else {
-				System.out.println("deletion failed...");
-			}
-		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}	
-		
-	}
-
 }

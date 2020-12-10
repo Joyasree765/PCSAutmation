@@ -10,11 +10,8 @@ public class Employee {
 	private String gender;
 	private String active;
 	//default constructor methods
-	public Employee() {
-		
-	}
-	//parameterized constructor method
-	public Employee(String firstName, String lastName, String userId, String password, String role, String gender) {
+	//for testing
+	public  Employee( int empId,String firstName, String lastName, String userId, String password, String role, String gender,String Active) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -22,6 +19,10 @@ public class Employee {
 		this.password = password;
 		this.role = role;
 		this.gender = gender;
+		this.active= active;
+	}
+	public Employee() {
+		
 	}
 	//All setter and getter methods
 	public int getEmpId() {

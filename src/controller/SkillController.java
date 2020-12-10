@@ -1,116 +1,108 @@
 package controller;
 import java.io.*;
+
 import java.sql.*;
 import java.util.List;
 
+import dao.IJobDao;
 import dao.ISkillDao;
+import daolmpl.JobDaolmpl;
 import daolmpl.SkillDaolmpl;
+import model.Job;
 import model.Skill;
 
 
 public class SkillController {
 	ISkillDao skDao=null;
-	public  SkillController() throws ClassNotFoundException, SQLException{
+	public SkillController() throws ClassNotFoundException,SQLException
+	{
 		skDao=new SkillDaolmpl();
 	}
-	public Skill checkLogin(String SkillId,String password) {
-		Skill sk=skDao.checkLogin(SkillId, password);
-		return sk;
-	}
 	
-	public void addSkill() {
+	public Skill addSkill(String s1,String s2)  
+	{
 		Skill sk=new Skill();
-		try {
-			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Enter SkillName:");
-			String skillName=reader.readLine();
-			sk.setskillName(skillName);
-			System.out.println("Enter SkillDescription:");
-			sk.setskillDescription(reader.readLine());
-			if(skillName.equals("CUSTOMER SERVICE")) {
-				sk.setActive("Active");
-			}
-			else {
-				sk.setActive("Deactive");
-			}
-			//Calling dao method for insert record
-			skDao.addSkill(sk);
-		}
-		catch(IOException ex) {
-			System.out.println(ex.getMessage());
-		}
-	}
-	
-	public void getAllSkills() {
 		
+		sk.setskillName(s1);
+		
+		sk.setskillDescription(s2);
+		String skill=s1;
+		if(skill.equals("Presentation"))
+		{
+			sk.setActive("Deactive");
+		}
+		else
+		{
+			sk.setActive("Active");
+		
+		}
+		skDao.addSkill(sk);
+		return sk;
+		
+}
+	public List<Skill> getAllSkills()
+	{
 		List<Skill> allSkillList=skDao.getAllSkills();
 		for(Skill sk:allSkillList) {
 			System.out.println(sk);
 		}
+		
+			return allSkillList;
 	}
-	public void getSkillById() {
-		try {
-			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+		public Skill getSkillById(String SkillId )
+		{
 			int id;
-			System.out.println("Enter SkillId whose record you want to access:");
-			id=Integer.parseInt(reader.readLine());
+			id=Integer.parseInt(SkillId);
 			Skill sk=skDao.getSkillById(id);
-			System.out.println(sk);
+				return sk;
 		}
-		catch(IOException ex) {
-			System.out.println(ex.getMessage());
-		}
-	}
-	public void updateSkill() {
-		try {
-			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-			int id;
-			String skillDescription, confirmskillDescription;
-			System.out.println("Enter SkillId whose record you want to update:");
-			id=Integer.parseInt(reader.readLine());
-			Skill sk=skDao.getSkillById(id);
-			System.out.println("Enter your new skillDescription:");
-			confirmskillDescription=reader.readLine();
-			System.out.println("Re-enter same skillDescription to confirm:");
-			confirmskillDescription=reader.readLine();
-			if(confirmskillDescription.equals(confirmskillDescription)) {
-				sk.setskillDescription(confirmskillDescription);
+		public void updateSkill() {
+			try {
+				BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+				int id;
+				System.out.println("Enter the SkillId whose record you want to update:");
+				id=Integer.parseInt(reader.readLine());
+				Skill sk=skDao.getSkillById(id);
 				skDao.updateSkill(sk);
 			}
-			else {
-				System.out.println("Sorry! you have entered different skillDescription!");
+			catch(IOException ex) {
+				System.out.println(ex.getMessage());
 			}
 		}
-		catch(IOException ex) {
-			System.out.println(ex.getMessage());
+		public void deactivateSkill(int id) {
+			
+				/*BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+				int id;
+				System.out.println("Enter the SkillId whose record you want to deactivate:");
+				id=Integer.parseInt(reader.readLine());
+				Skill sk=skDao.getSkillById(id);*/
+				skDao.deactivateSkill(id);
+			
 		}
-	}
-	public void deactiveSkill() {
-		try {
-			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-			int id;
-			System.out.println("EnterSkillId whose record you want to deactivate:");
-			id=Integer.parseInt(reader.readLine());
-			Skill sk=skDao.getSkillById(id);
-			skDao.deactivateSkill(sk);
+		public void activateSkill(int id) {
+			skDao.activeSkill(id);
+			
 		}
-		catch(IOException ex) {
-			System.out.println(ex.getMessage());
+		//ISkillDao sk=new SkillDaolmpl();
+		//public List<Skill> getAllSkill(){
+			//List<Skill> allJoblist=sk.getAllSkills();
+			 //for(Skill esk:allSkilllist) {
+					//System.out.println(esk);
+	//}	
+			// return  allSkilllist;
+			
+		//}
+		public void deleteSkill() {
+			try {
+				BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+				int id;
+				System.out.println("Enter the SkillId whose record you want to delete:");
+				id=Integer.parseInt(reader.readLine());
+				skDao.deleteSkill(id);
+			}
+			catch(IOException ex) {
+				System.out.println(ex.getMessage());
+			}
 		}
-	}
-	public void deleteSkill() {
-		try {
-			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-			int id;
-			System.out.println("Enter SkillId whose record you want to delete:");
-			id=Integer.parseInt(reader.readLine());
-			skDao.deleteSkill(id);
-		}
-		catch(IOException ex) {
-			System.out.println(ex.getMessage());
-		}
-	}
-
-
-
+	
 }

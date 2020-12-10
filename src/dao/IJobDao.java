@@ -5,12 +5,12 @@ import model.Job;
 
 
 public interface IJobDao {
-	List<Job> getAllJobs();
-	void addJob(Job jb);
+	List<Job> getAllJob();
+	void addJob(Job job);
 	Job getJobById(int id);
-	void updateJob(Job jb);
-	void deactivateJob(Job jb);
+	void updateJob(Job job);
+	void deactivateJob(Job job);
 	void deleteJob(int id);
-	Job checkLogin(String JobId, String password);
+	void activeJob(int id);
 
 }

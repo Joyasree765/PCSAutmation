@@ -4,64 +4,65 @@ import java.io.*;
 import java.sql.*;
 import java.util.List;
 
+import dao.IEmpJobDao;
 import dao.IJobDao;
+import daolmpl.EmpJobDaolmpl;
 import daolmpl.JobDaolmpl;
+import model.EmpJob;
 import model.Job;
 
 public class JobController {
-	IJobDao jbDao=null;
-	public  JobController() throws ClassNotFoundException, SQLException{
-		jbDao=new JobDaolmpl();
+	IJobDao jobDao=null;
+	public JobController() throws ClassNotFoundException,SQLException
+	{
+		jobDao=new JobDaolmpl();
 	}
-	public Job checkLogin(String JobId,String password) {
-		Job jb=jbDao.checkLogin(JobId, password);
-		return jb;
-	}
-	public void addJob() {
-		Job jb=new Job();
-		try {
-			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-			System.out.println("Enter JobTitle:");
-			jb.setJobTitle(reader.readLine());
-			System.out.println("Enter JobDescription:");
-			jb.setJobDescription(reader.readLine());
-			System.out.println("Enter companyName:");
-			jb.setcompanyName(reader.readLine());
-			System.out.println("Enter Location:");
-			jb.setLocation(reader.readLine());
-			System.out.println("Enter keySkill:");
-			String keySkill=reader.readLine();
-			jb.setkeySkill(keySkill);
-			System.out.println("Enter Salary:");
-			jb.setsalary(reader.readLine());
-			if(keySkill.equals("COMMUNICATION")) {
-				jb.setActive("Active");
-			}
-			else {
-				jb.setActive("Deactive");
-			}
-			//Calling dao method for insert record
-			jbDao.addJob(jb);
+	public void addJob(String s1,String s2,String s3,String s4,String s5,String s6)  {
+	Job job=new Job();
+	
+		//BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+		//System.out.println("Enter Job Title :");
+		String title=s1;
+		job.setJobTitle(s1);
+		//System.out.println("Enter Job Description:");
+		job.setJobDescription(s2);
+		//System.out.println("Enter Company Name :");
+		job.setcompanyName(s3);
+		//System.out.println("Enter Location:");
+		job.setLocation(s4);
+		//System.out.println("Enter KeySkill:");
+		job.setkeySkill(s5);
+		//System.out.println("Enter Salary:");
+		job.setsalary(s6);
+		if(title.equals("HR"))
+		{
+			job.setActive("Active");
 		}
-		catch(IOException ex) {
-			System.out.println(ex.getMessage());
+		else
+		{
+			job.setActive("Deactive");
+		
 		}
+		jobDao.addJob(job);
 	}
 	
-	public void getAllJobs() {
-		
-		List<Job> allJobList=jbDao.getAllJobs();
-		for(Job job:allJobList) {
+	public void getAllJob()
+	{
+		List<Job> allJobList=jobDao.getAllJob();
+		for(Job job:allJobList)
+		{
 			System.out.println(job);
 		}
+		
 	}
-	public void getJobById() {
+	public void getJobById()
+	{
 		try {
 			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
 			int id;
-			System.out.println("Enter JobId whose record you want to access:");
+			System.out.println("Enter the JobId whose record you want to access:");
 			id=Integer.parseInt(reader.readLine());
-			Job job=jbDao.getJobById(id);
+			Job job=jobDao.getJobById(id);
 			System.out.println(job);
 		}
 		catch(IOException ex) {
@@ -72,52 +73,51 @@ public class JobController {
 		try {
 			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
 			int id;
-			String companyName, confirmcompanyName;
-			System.out.println("Enter JobId whose record you want to update:");
+			System.out.println("Enter the JobId whose record you want to update:");
 			id=Integer.parseInt(reader.readLine());
-			Job jb=jbDao.getJobById(id);
-			System.out.println("Enter your new companyName:");
-			companyName=reader.readLine();
-			System.out.println("Re-enter same companyName to confirm:");
-			confirmcompanyName=reader.readLine();
-			if(companyName.equals(confirmcompanyName)) {
-				jb.setcompanyName(companyName);
-				jbDao.updateJob(jb);
-			}
-			else {
-				System.out.println("Sorry! you have entered different companyName!");
-			}
+			Job job=jobDao.getJobById(id);
+			jobDao.updateJob(job);
 		}
 		catch(IOException ex) {
 			System.out.println(ex.getMessage());
 		}
 	}
-	public void deactiveJob() {
-		try {
-			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-			int id;
-			System.out.println("Enter JobId whose record you want to deactivate:");
-			id=Integer.parseInt(reader.readLine());
-			Job jb=jbDao.getJobById(id);
-			jbDao.deactivateJob(jb);
-		}
-		catch(IOException ex) {
-			System.out.println(ex.getMessage());
-		}
+	public void deactivateJob(int id) {
+		//try {
+			//BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
+			//int id;
+			//System.out.println("Enter the JobId whose record you want to deactivate:");
+			//id=Integer.parseInt(reader.readLine());
+			Job job=jobDao.getJobById(id);
+			jobDao.deactivateJob(job);
+		//}
+		//catch(IOException ex) {
+			//System.out.println(ex.getMessage());
+		//}
+	}
+	public void activateJob(int id) {
+		jobDao.activeJob(id);
+		
+	}
+	IJobDao job=new JobDaolmpl();
+	public List<Job> getAllJobs(){
+		List<Job> allJoblist=job.getAllJob();
+		 for(Job ejb:allJoblist) {
+				System.out.println(ejb);
+}	
+		 return  allJoblist;
+		
 	}
 	public void deleteJob() {
 		try {
 			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
 			int id;
-			System.out.println("Enter JobId whose record you want to delete:");
+			System.out.println("Enter the JobId whose record you want to delete:");
 			id=Integer.parseInt(reader.readLine());
-			jbDao.deleteJob(id);
+			jobDao.deleteJob(id);
 		}
 		catch(IOException ex) {
 			System.out.println(ex.getMessage());
 		}
 	}
-
-
-
 }

@@ -1,7 +1,7 @@
 package model;
 
 public class Job {
-	private int JobId;
+	private static int JobId;
 	private  String JobTitle;
 	private String JobDescription;
 	private String companyName;
@@ -26,7 +26,7 @@ public class Job {
 		
 	}
 	//All setter and getter methods
-	public int getJobId() {
+	public static int getJobId() {
 		return JobId;
 	}
 	public void setJobId(int JobId) {

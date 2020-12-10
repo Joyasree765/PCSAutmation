@@ -1,5 +1,6 @@
 package daolmpl;
 import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,108 +11,98 @@ import model.EmpJob;
 
 public class EmpJobDaolmpl implements IEmpJobDao {
 	Connection conn=null;
-	public EmpJobDaolmpl() throws ClassNotFoundException, SQLException{
-		//Opened connection
+	public EmpJobDaolmpl() throws ClassNotFoundException,SQLException
+	{
 		conn=JDBCConnection.getDBConnection();
 	}
-	public EmpJob checkLogin(String EJId, String password) {
-		EmpJob ej=new EmpJob();
-		try{
-			PreparedStatement pst=conn.prepareStatement("select * from EmpJob where EJId=? and password=?");
-			pst.setString(1, EJId);
-			pst.setString(2, password);
-			ResultSet rst=pst.executeQuery();
-			if(rst!=null) {
-				if(rst.next()) {
-					ej.setEJId(rst.getInt(1));
-					ej.setEmployeeId(rst.getString(2));
-					ej.setJobId(rst.getString(3));
-					ej.setRecruited(rst.getString(4));
-				}
-			}
-		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
-		return ej;
-	}
 
 	@Override
-	public List<EmpJob> getAllEmpJobs() {
-		List<EmpJob> allEmpJobList=new ArrayList<EmpJob>();
-		try{
+	public List<EmpJob> getAllEmpJob() {
+		List<EmpJob>allEmpJobList =new ArrayList<EmpJob>();
+		try
+		{
 			Statement stmt=conn.createStatement();
-			ResultSet rst=stmt.executeQuery("select * from EmpJob");
-			if(rst!=null) {
-				EmpJob ej=null;
-				while(rst.next()) {
-					ej=new EmpJob();
-					ej.setEJId(rst.getInt(1));
-					ej.setEmployeeId(rst.getString(2));
-					ej.setJobId(rst.getString(3));
-					ej.setRecruited(rst.getString(4));
-					allEmpJobList.add(ej); 
+			ResultSet rst=stmt.executeQuery("Select * from EmpJob");
+			if(rst!=null)
+			{
+				EmpJob empj=null;
+				while(rst.next())
+				{empj=new EmpJob();
+					empj.setEJId(rst.getInt(1));
+					empj.setEmployeeId(rst.getInt(2));
+					empj.setEJId(rst.getInt(3));
+					empj.setRecruited(rst.getString(4));
+					allEmpJobList.add(empj);
 				}
 			}
 		}
-		catch(SQLException ex) {
+		catch(SQLException ex)
+		{
 			System.out.println(ex.getMessage());
 		}
-		return allEmpJobList;
+		return allEmpJobList;	
+		
 	}
 
 	@Override
-	public void addEmpJob(EmpJob ej) {
+	public void addEmpJob(EmpJob empj) {
 		try {
-			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("insert into EmpJob(EmployeeId, JobId,Recruited) values(?,?,?)");
-			pst.setString(1, ej.getEmployeeId());
-			pst.setString(2, ej.getJobId());
-			pst.setString(3, ej.getRecruited());
-			int i=pst.executeUpdate();
-			if(i==1){
-				System.out.println("1 record inserted...");
-			}
-			else {
-				System.out.println("insertion failed...");
-			}
-		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
+			PreparedStatement pst=conn.prepareStatement("Insert into EmpJob(EmployeeId,JobId,Recruited) values(?,?,?)");
+			pst.setInt(1,empj.getEmployeeId());
+			pst.setInt(2,empj.getJobId());
+			pst.setString(3,empj.getRecruited());
 		
+			int i=pst.executeUpdate();
+			
+			if(i==1)
+			{
+				System.out.println("1 record inserted");
+			}
+			else
+			{
+				System.out.println("Insertion failed...");
+			}
+		}
+			catch(SQLException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
 		
 	}
 
 	@Override
 	public EmpJob getEmpJobById(int id) {
-		EmpJob ej=new EmpJob();
-		try{
-			PreparedStatement pst=conn.prepareStatement("select * from EmpJob where ejId=?");
+		EmpJob empj=new EmpJob();
+		try
+		{
+			PreparedStatement pst=conn.prepareStatement("Select * from EmpJob where EJId=?");
 			pst.setInt(1, id);
 			ResultSet rst=pst.executeQuery();
-			if(rst!=null) {
-				if(rst.next()) {
-					ej.setEJId(rst.getInt(1));
-					ej.setEmployeeId(rst.getString(2));
-					ej.setJobId(rst.getString(3));
-					ej.setRecruited(rst.getString(4));
+			if(rst!=null)
+			{
+				if(rst.next())
+				{
+					empj.setEJId(rst.getInt(1));
+					empj.setEmployeeId(rst.getInt(2));
+					empj.setEJId(rst.getInt(3));
+					empj.setRecruited(rst.getString(4));
 				}
 			}
 		}
-		catch(SQLException ex) {
+		catch(SQLException ex)
+		{
 			System.out.println(ex.getMessage());
-		}
-		return ej;
+		}	
+		return empj;
 	}
 
 	@Override
-	public void updateEmpJob(EmpJob ej) {
+	public void updateEmpJob(EmpJob emp) {
 		try {
 			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("update EmpJob set EmployeeId=? where EJId=?");
-			pst.setString(1, ej.getEmployeeId());
-			pst.setInt(2, ej.getEJId());
+			PreparedStatement pst=conn.prepareStatement("update EmpJob set Recruited=? where EJId=?");
+			pst.setString(1, emp.getRecruited());
+			pst.setInt(2, emp.getEJId());
 			int i=pst.executeUpdate();
 			if(i==1){
 				System.out.println("1 record updated...");
@@ -122,20 +113,20 @@ public class EmpJobDaolmpl implements IEmpJobDao {
 		}
 		catch(SQLException ex) {
 			System.out.println(ex.getMessage());
-		}	
+		}		
 		
 	}
-
+/*
 	@Override
-	public void deactivateEmpJob(EmpJob ej) {
+	public void deactivateEmpJob(int id) {
 		try {
 			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("update EmpJob set Recruited=? where EJId=?");
+			PreparedStatement pst=conn.prepareStatement("update Employee set Active=? where EjId=?");
 			pst.setString(1, "Deactive");
-			pst.setInt(2, ej.getEJId());
+			pst.setInt(2, id);
 			int i=pst.executeUpdate();
 			if(i==1){
-				System.out.println("EmpJob deactivated...");
+				System.out.println("Employee deactivated...");
 			}
 			else {
 				System.out.println("updation failed...");
@@ -144,27 +135,30 @@ public class EmpJobDaolmpl implements IEmpJobDao {
 		catch(SQLException ex) {
 			System.out.println(ex.getMessage());
 		}	
-		
-	}
-
+	}*/
 	@Override
 	public void deleteEmpJob(int id) {
 		try {
-			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("delete from EmpJob where EJId=?");
-			pst.setInt(1, id);
+			PreparedStatement pst=conn.prepareStatement("Delete from EmpJob where EJId=?");
+			pst.setInt(1,id);
 			int i=pst.executeUpdate();
-			if(i==1){
-				System.out.println("EmpJob deleted...");
+			
+			if(i==1)
+			{
+				System.out.println("EmpJob Deleted");
 			}
-			else {
-				System.out.println("deletion failed...");
+			else
+			{
+				System.out.println("Deletion failed...");
 			}
 		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}	
+			catch(SQLException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
 		
 	}
 
+
+	
 }

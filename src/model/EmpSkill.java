@@ -3,15 +3,15 @@ package model;
 
 public class EmpSkill {
 	private int ESId;
-	private  String EmployeeId;
-	private String SkillId;
-	private String ExpYear;
+	private  int EmployeeId;
+	private int SkillId;
+	private int ExpYear;
 	//default constructor methods
 	public EmpSkill() {
 		
 	}
 	//parameterized constructor method
-	public EmpSkill(String EmployeeId, String SkillId, String ExpYear ) {
+	public EmpSkill(int EmployeeId, int SkillId, int ExpYear ) {
 		super();
 		this.EmployeeId = EmployeeId;
 		this.SkillId = SkillId;
@@ -24,22 +24,22 @@ public class EmpSkill {
 	public void setESId(int esId) {
 		this.ESId = esId;
 	}
-	public String getEmployeeId() {
+	public int getEmployeeId() {
 		return EmployeeId;
 	}
-	public void setEmployeeId(String employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.EmployeeId = employeeId;
 	}
-	public String getSkillId() {
+	public int getSkillId() {
 		return SkillId;
 	}
-	public void setSkillId(String skillId) {
+	public void setSkillId(int skillId) {
 		this.SkillId = skillId;
 	}
-	public String getExpYear() {
+	public int getExpYear() {
 		return ExpYear;
 	}
-	public void setExpYear(String expYear) {
+	public void setExpYear(int expYear) {
 		this.ExpYear = expYear;
 	}
 	@Override

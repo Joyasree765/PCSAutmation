@@ -9,177 +9,195 @@ import model.Job;
 
 public class JobDaolmpl implements IJobDao {
 	Connection conn=null;
-	public JobDaolmpl() throws ClassNotFoundException, SQLException{
-		//Opened connection
+	public JobDaolmpl() throws ClassNotFoundException,SQLException
+	{
 		conn=JDBCConnection.getDBConnection();
 	}
-	public Job checkLogin(String JobId, String password) {
-		Job jb=new Job();
-		try{
-			PreparedStatement pst=conn.prepareStatement("select * from Job where JobId=? and password=?");
-			pst.setString(1, JobId);
-			pst.setString(2, password);
-			ResultSet rst=pst.executeQuery();
-			if(rst!=null) {
-				if(rst.next()) {
-					jb.setJobId(rst.getInt(1));
-					jb.setJobTitle(rst.getString(2));
-					jb.setJobDescription(rst.getString(3));
-					jb.setcompanyName(rst.getString(4));
-					jb.setLocation(rst.getString(5));
-					jb.setkeySkill(rst.getString(6));
-					jb.setsalary(rst.getString(7));
-					jb.setActive(rst.getString(8));
-				}
-			}
-		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
-		return jb;
-	}
 
 	@Override
-	public List<Job> getAllJobs() {
-		List<Job> allJobList=new ArrayList<Job>();
-		try{
+	public List<Job> getAllJob() {
+		List<Job>allJobList =new ArrayList<Job>();
+		try
+		{
 			Statement stmt=conn.createStatement();
-			ResultSet rst=stmt.executeQuery("select * from Job");
-			if(rst!=null) {
-				Job jb=null;
-				while(rst.next()) {
-					jb=new Job();
-					jb.setJobId(rst.getInt(1));
-					jb.setJobTitle(rst.getString(2));
-					jb.setJobDescription(rst.getString(3));
-					jb.setcompanyName(rst.getString(4));
-					jb.setLocation(rst.getString(5));
-					jb.setkeySkill(rst.getString(6));
-					jb.setsalary(rst.getString(7));
-					jb.setActive(rst.getString(8));
-					allJobList.add(jb); 
+			ResultSet rst=stmt.executeQuery("Select * from Job");
+			if(rst!=null)
+			{
+				Job job=null;
+				while(rst.next())
+				{job=new Job();
+					job.setJobId(rst.getInt(1));
+					job.setJobTitle(rst.getString(2));
+					job.setJobDescription(rst.getString(3));
+					job.setcompanyName(rst.getString(4));
+					job.setLocation(rst.getString(5));
+					job.setkeySkill(rst.getString(6));
+					job.setsalary(rst.getString(7));
+					job.setActive(rst.getString(8));
+					allJobList.add(job);
 				}
 			}
 		}
-		catch(SQLException ex) {
+		catch(SQLException ex)
+		{
 			System.out.println(ex.getMessage());
 		}
-		return allJobList;
+		return allJobList;	
 	}
 
 	@Override
-	public void addJob(Job jb) {
+	public void addJob(Job job) {
 		try {
-			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("insert into Job(JobTitle,JobDescription,companyName,Location,keySkill,salary,Active) values(?,?,?,?,?,?,?)");
-			pst.setString(1, jb.getJobTitle());
-			pst.setString(2, jb.getJobDescription());
-			pst.setString(3, jb.getcompanyName());
-			pst.setString(4, jb.getLocation());
-			pst.setString(5, jb.getkeySkill());
-			pst.setString(6, jb.getsalary());
-			pst.setString(7, jb.getActive());
+			PreparedStatement pst=conn.prepareStatement("Insert into Job(JobTitle,JobDescription,CompanyName,Location,KeySkill,Salary,Active) values(?,?,?,?,?,?,?)");
+			pst.setString(1,job.getJobTitle());
+			pst.setString(2,job.getJobDescription());
+			pst.setString(3,job.getcompanyName());
+			pst.setString(4,job.getLocation());
+			pst.setString(5,job.getkeySkill());
+			pst.setString(6,job.getsalary());
+			pst.setString(7,job.getActive());
 			int i=pst.executeUpdate();
-			if(i==1){
-				System.out.println("1 record inserted...");
+			
+			if(i==1)
+			{
+				System.out.println("1 record inserted");
 			}
-			else {
-				System.out.println("insertion failed...");
+			else
+			{
+				System.out.println("Insertion failed...");
 			}
 		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}
-		
+			catch(SQLException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
 		
 	}
 
 	@Override
 	public Job getJobById(int id) {
-		Job jb=new Job();
-		try{
-			PreparedStatement pst=conn.prepareStatement("select * from Job where jbId=?");
+		Job job=new Job();
+		try
+		{
+			PreparedStatement pst=conn.prepareStatement("Select * from Job where JobId=?");
 			pst.setInt(1, id);
 			ResultSet rst=pst.executeQuery();
-			if(rst!=null) {
-				if(rst.next()) {
-					jb.setJobId(rst.getInt(1));
-					jb.setJobTitle(rst.getString(2));
-					jb.setJobDescription(rst.getString(3));
-					jb.setcompanyName(rst.getString(4));
-					jb.setLocation(rst.getString(5));
-					jb.setkeySkill(rst.getString(6));
-					jb.setsalary(rst.getString(7));
-					jb.setActive(rst.getString(8));
+			if(rst!=null)
+			{
+				if(rst.next())
+				{
+					job.setJobId(rst.getInt(1));
+					job.setJobTitle(rst.getString(2));
+					job.setJobDescription(rst.getString(3));
+					job.setcompanyName(rst.getString(4));
+					job.setLocation(rst.getString(5));
+					job.setkeySkill(rst.getString(6));
+					job.setsalary(rst.getString(7));
+					job.setActive(rst.getString(8));
 				}
 			}
 		}
-		catch(SQLException ex) {
+		catch(SQLException ex)
+		{
 			System.out.println(ex.getMessage());
-		}
-		return jb;
+		}	
+		return job;
 	}
 
 	@Override
-	public void updateJob(Job jb) {
+	public void updateJob(Job job) {
 		try {
-			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("update Job set companyName=? where JobId=?");
-			pst.setString(1, jb.getcompanyName());
-			pst.setInt(2,  jb.getJobId());
+			PreparedStatement pst=conn.prepareStatement("update Job set Salary=? where JobId=?");
+			pst.setString(1, job.getsalary());
+			pst.setInt(2, job.getJobId());
 			int i=pst.executeUpdate();
-			if(i==1){
-				System.out.println("1 record updated...");
+			
+			if(i==1)
+			{
+				System.out.println("1 record updated");
 			}
-			else {
-				System.out.println("updation failed...");
+			else
+			{
+				System.out.println("Updation failed...");
 			}
 		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}	
-		
+			catch(SQLException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
 	}
 
 	@Override
-	public void deactivateJob(Job jb) {
+	public void deactivateJob(Job job) {
 		try {
-			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("update Job set Active=? where JobId=?");
-			pst.setString(1, "Deactive");
-			pst.setInt(2, jb.getJobId());
+			PreparedStatement pst=conn.prepareStatement("Update Job set Active=? where JobId=?");
+			pst.setString(1,"Deactive");
+			pst.setInt(2,job.getJobId());
 			int i=pst.executeUpdate();
-			if(i==1){
-				System.out.println("Job deactivated...");
+			
+			if(i==1)
+			{
+				System.out.println("Job Deactivated");
 			}
-			else {
-				System.out.println("updation failed...");
+			else
+			{
+				System.out.println("Updation failed...");
 			}
 		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}	
+			catch(SQLException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
 		
 	}
 
 	@Override
 	public void deleteJob(int id) {
 		try {
-			//creating PreparedStatement object by passing query string
-			PreparedStatement pst=conn.prepareStatement("delete from Job where JobId=?");
-			pst.setInt(1, id);
+			PreparedStatement pst=conn.prepareStatement("Delete From Job where JobId=?");
+			pst.setInt(1,id);
 			int i=pst.executeUpdate();
-			if(i==1){
-				System.out.println("Job deleted...");
+			
+			if(i==1)
+			{
+				System.out.println("Job Deleted");
 			}
-			else {
-				System.out.println("deletion failed...");
+			else
+			{
+				System.out.println("Deletion failed...");
 			}
 		}
-		catch(SQLException ex) {
-			System.out.println(ex.getMessage());
-		}	
+			catch(SQLException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
 		
 	}
-	
-}
+
+	@Override
+	public void activeJob(int id) {
+		try {
+			PreparedStatement pst=conn.prepareStatement("Update Job set Active=? where JobId=?");
+			pst.setString(1,"Active");
+			pst.setInt(2,Job.getJobId());
+			int i=pst.executeUpdate();
+			
+			if(i==1)
+			{
+				System.out.println("Job Deactivated");
+			}
+			else
+			{
+				System.out.println("Updation failed...");
+			}
+		}
+			catch(SQLException ex)
+			{
+				System.out.println(ex.getMessage());
+			}
+		
+	}
+		
+		
+	}
+

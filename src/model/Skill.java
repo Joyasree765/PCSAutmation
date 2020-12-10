@@ -1,7 +1,7 @@
 package model;
 
 public class Skill {
-	private int skillId;
+	private static int skillId;
 	private  String skillName;
 	private String skillDescription;
 	private String Active;	

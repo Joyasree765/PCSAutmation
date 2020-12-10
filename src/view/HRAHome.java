@@ -1,25 +1,51 @@
 package view;
 import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.*;
 
+import controller.EmploeeController;
+import controller.JobController;
+import controller.SkillController;
+import model.Employee;
+
 public class HRAHome extends JFrame {
-	Container container=null;
-	JLabel lTitle;
+	Container container;
+	JLabel lTitle,lEmpId;
+	JTextField tEmpId,tData;
+	JList list;
+	//DefaultListModel<List<Employee>>listmodel;
 	JButton bSetActive,bSetDeactive,bViewAllEmp, bViewSelectiveEmp, bAddSkill, bViewSkill, bSetDeactiveSkill, bLogout;
-	public HRAHome() {
+	JFrame f;
+	EmploeeController empController=null;
+	JobController jobController=null;
+	SkillController skillController=null;
+	
+	public HRAHome()  throws ClassNotFoundException,SQLException {
 		container=getContentPane();
+		empController=new EmploeeController();
+		jobController=new JobController();
+		skillController=new SkillController();
 		lTitle=new JLabel("Welcome to HRA portal");
+		tEmpId=new JTextField();
+		Employee emp=new Employee();
 		bSetActive=new JButton("Activate Users");
 		bSetActive.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				try {
 				new SetActivateFrame();
 				
+			}catch(ClassNotFoundException e1) {
+				e1.printStackTrace();
+			}catch(SQLException e1) {
+				e1.printStackTrace();
 			}
+			}	
 		});
 		bSetDeactive=new JButton("Deactivate Users");
 		bSetDeactive.addActionListener(new ActionListener() {
@@ -52,9 +78,17 @@ public class HRAHome extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				try {
+					new AddSkillFrame();
+					
+				}catch(ClassNotFoundException e1) {
+					e1.printStackTrace();
+				}catch(SQLException e1) {
+					e1.printStackTrace();
+				}
+				}	
 				
-			}
+						
 			
 		});
 		bViewSkill=new JButton("View all Skills");
@@ -62,7 +96,7 @@ public class HRAHome extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				
 				
 			}
 			

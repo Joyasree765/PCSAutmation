@@ -7,8 +7,7 @@ public interface ISkillDao {
 	void addSkill(Skill sk);
 	Skill getSkillById(int id);
 	void updateSkill(Skill sk);
-	void deactivateSkill(Skill sk);
 	void deleteSkill(int id);
-	Skill checkLogin(String SkillId, String password);
-
+	void deactivateSkill(int id);
+	void activeSkill(int id);
 }

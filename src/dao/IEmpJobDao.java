@@ -3,13 +3,12 @@ import java.util.List;
 import model.EmpJob;
 
 public interface IEmpJobDao {
-	List<EmpJob> getAllEmpJobs();
-	void addEmpJob(EmpJob ej);
+	List<EmpJob> getAllEmpJob();
+	void addEmpJob(EmpJob empj);
 	EmpJob getEmpJobById(int id);
-	void updateEmpJob(EmpJob ej);
-	void deactivateEmpJob(EmpJob ej);
+	void updateEmpJob(EmpJob empj);
+	//void deactivateEmpJob(int id);
 	void deleteEmpJob(int id);
-	EmpJob checkLogin(String userId, String password);
 	
 
 }

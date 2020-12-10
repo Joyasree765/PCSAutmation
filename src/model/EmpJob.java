@@ -2,15 +2,15 @@ package model;
 
 public class EmpJob {
 	private int EJId;
-	private  String EmployeeId;
-	private String JobId;
+	private  int EmployeeId;
+	private int JobId;
 	private String Recruited;
 	//default constructor methods
 	public EmpJob() {
 		
 	}
 	//parameterized constructor method
-	public EmpJob(String EmployeeId, String JobId, String Recruited ) {
+	public EmpJob(int EmployeeId, int JobId, String Recruited ) {
 		super();
 		this.EmployeeId = EmployeeId;
 		this.JobId = JobId;
@@ -23,16 +23,16 @@ public class EmpJob {
 	public void setEJId(int ejId) {
 		this.EJId = ejId;
 	}
-	public String getEmployeeId() {
+	public int getEmployeeId() {
 		return EmployeeId;
 	}
-	public void setEmployeeId(String employeeId) {
+	public void setEmployeeId(int employeeId) {
 		this.EmployeeId = employeeId;
 	}
-	public String getJobId() {
+	public int getJobId() {
 		return JobId;
 	}
-	public void setJobId(String jobId) {
+	public void setJobId(int jobId) {
 		this.JobId = jobId;
 	}
 	public String getRecruited() {

@@ -1,16 +1,28 @@
 package view;
 import java.awt.*;
 import java.awt.event.*;
+import java.sql.SQLException;
 import javax.swing.*;
+import controller.EmploeeController;
+import model.Employee;
+
 
 public class RegistrationFrame extends JFrame {
-	Container container=null;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;	
+	Container container;
+	JFrame f;
 	JLabel   lFirstName,lLastname,lUserId, lPassword,lconfirmPassword,lGender,lRole;
-	JTextField tFirstName,tLastName,tUserId,tPassword,tconfirmPassword,tGender,tRole;
+	JTextField tFirstName,tLastName,tUserId,tGender,tRole;
+	JPasswordField tPassword,tconfirmPassword;
 	JButton bsubmit;
 	JCheckBox cTerms;
-	public RegistrationFrame() {
+	EmploeeController empController=null;
+	public RegistrationFrame() throws ClassNotFoundException, SQLException {
 		container=getContentPane();
+		f=new JFrame();
 		lFirstName=new JLabel("First Name");
 		lLastname=new JLabel("Last Name");
 		lUserId=new JLabel("User Id");
@@ -22,29 +34,46 @@ public class RegistrationFrame extends JFrame {
 		tFirstName=new JTextField();
 		tLastName=new JTextField();
 		tUserId=new JTextField();
-		tPassword=new JTextField();
-		tconfirmPassword=new JTextField();
+		tPassword=new JPasswordField();
+		tconfirmPassword=new JPasswordField();
 		tGender=new JTextField();
 		tRole=new JTextField();
 		bsubmit=new JButton("SUBMIT");
+		empController=new EmploeeController();
 		//Event handling for Login button
 		bsubmit.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+                 String s1,s2,s3,s4,s5,s6,s7;
+				
+				s1=tFirstName.getText();
+				s2=tLastName.getText();
+				s3=tUserId.getText();
+				s4=new String(tPassword.getPassword());
+				s5=tGender.getText();
+				s6=tRole.getText();
+				s7=new String(tconfirmPassword.getPassword());
+				if(s4.equals(s7))
+				{
+					empController.addEmployee(s1,s2,s3,s4,s5,s6);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(f,"Oops! Password do not match,Retry!");
+				}
 				
 			}
 			
 		});
-		cTerms=new JCheckBox("I agree to & condition");
+		//cTerms=new JCheckBox("I agree to & condition");
 		setLayoutManager();
 		setLocationAndSize();
 		addComponentsToContainer();
 		this.setTitle("Login Form");
 		this.setVisible(true);
 		this.setBounds(10,10,500,1600);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 	}
 	public void setLayoutManager() {
@@ -66,7 +95,7 @@ public class RegistrationFrame extends JFrame {
 		tconfirmPassword.setBounds(250, 300, 150, 30);
 		tGender.setBounds(250, 350, 150, 30);
 		tRole.setBounds(250, 400, 150, 30);
-		cTerms.setBounds(150,450,250,30);
+		//cTerms.setBounds(150,450,250,30);
 		
 		
 		bsubmit.setBounds(100,500,150,30);
@@ -87,7 +116,7 @@ public class RegistrationFrame extends JFrame {
 		container.add(tGender);
 		container.add(lRole);
 		container.add(tRole);
-		container.add(cTerms);
+		//container.add(cTerms);
 		container.add(bsubmit);
 		
 		
