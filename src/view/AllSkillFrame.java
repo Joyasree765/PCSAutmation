@@ -26,11 +26,11 @@ public class AllSkillFrame  extends JFrame {
 		ResultSet rst=stmt.executeQuery("select * from Skill");
 		while(rst.next())
 		{
-		    int a = rst.getInt("SkillId");
-		    String b = rst.getString("SkillName");
-		    String c = rst.getString("SkillDescription");
-		    String d = rst.getString("Active");
-		    model.addRow(new Object[]{a,b,c,d});
+		    int aa = rst.getInt("SkillId");
+		    String bb = rst.getString("SkillName");
+		    String cc = rst.getString("SkillDescription");
+		    String dd = rst.getString("Active");
+		    model.addRow(new Object[]{aa,bb,cc,dd});
 		    table.setModel(model);
 		    container=getContentPane();
 		    container.setLayout(null);
@@ -40,7 +40,7 @@ public class AllSkillFrame  extends JFrame {
 		    table.setBounds(10,10,800,900);
 		    this.setVisible(true);
 		    this.setBounds(10,10,800,900);
-		    this.setTitle("Skill Data");
+		    this.setTitle("Skill Table");
 		}
 
 	}

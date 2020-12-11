@@ -12,7 +12,7 @@ public class PMEHome extends JFrame{
 	public PMEHome() {
 		container=getContentPane();
 		lTitle=new JLabel("Welcome to PME portal");
-		bViewSKEmp=new JButton("View Skill wise Employee");
+		bViewSKEmp=new JButton("View Skill  Employee");
 		bViewSKEmp.addActionListener(new ActionListener() {
 
 			@Override

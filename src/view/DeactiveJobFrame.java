@@ -38,7 +38,7 @@ public class DeactiveJobFrame extends JFrame {
 		this.setTitle("Deactivate Skill");
 		this.setVisible(true);
 		this.setBounds(10,10,500,600);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 	}
 	

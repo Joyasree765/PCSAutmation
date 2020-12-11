@@ -17,9 +17,9 @@ public class setActiveJobFrame extends JFrame {
 	public void ActivateJobFrame() throws ClassNotFoundException, SQLException{
 		container=getContentPane();
 		f=new JFrame();
-		lJobId=new JLabel("ENTER JOB ID");
+		lJobId=new JLabel("Enter Job Id");
 		tJobId=new JTextField();
-		bActivate=new JButton("ACTIVATE");
+		bActivate=new JButton("Activate");
 		jobController=new JobController();
 		
 		bActivate.addActionListener(new ActionListener() {
@@ -38,7 +38,7 @@ public class setActiveJobFrame extends JFrame {
 		this.setTitle("Activate Skill");
 		this.setVisible(true);
 		this.setBounds(10,10,500,600);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 	}
 	

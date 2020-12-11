@@ -38,7 +38,7 @@ public class DeactivateEmpFrame extends JFrame {
 		this.setTitle("Activate Employee");
 		this.setVisible(true);
 		this.setBounds(10,10,500,600);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 	}
 	private void setLayoutManager() {

@@ -18,9 +18,9 @@ public class setActiveSkillFrame extends JFrame {
 	public void ActivateSkillFrame() throws ClassNotFoundException, SQLException{
 		container=getContentPane();
 		f=new JFrame();
-		lSkillId=new JLabel("ENTER SKILL ID");
+		lSkillId=new JLabel("Enter Skill Id");
 		tSkillId=new JTextField();
-		bActivate=new JButton("ACTIVATE");
+		bActivate=new JButton("Activate");
 		skiController=new SkillController();
 		
 		bActivate.addActionListener(new ActionListener() {

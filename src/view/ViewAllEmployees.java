@@ -15,12 +15,12 @@ public class ViewAllEmployees extends JFrame {
 	Container container=null;
 	public ViewAllEmployees(Employee userId) {
 		container=getContentPane();
-		lEmpId=new JLabel("Employee Id      "+userId.getEmpId());
-		lName=new JLabel("Name              "+userId.getFirstName()+""+userId.getLastName());
-		lUserId=new JLabel("User Id         "+userId.getUserId());
-		lRole=new JLabel("Designation       "+userId.getRole());
-		lGender=new JLabel("Gender          "+userId.getGender());
-		lStatus=new JLabel("Status          "+userId.getActive());
+		lEmpId=new JLabel("Employee Id  "+userId.getEmpId());
+		lName=new JLabel("Name  "+userId.getFirstName()+""+userId.getLastName());
+		lUserId=new JLabel("User Id "+userId.getUserId());
+		lRole=new JLabel("Designation"+userId.getRole());
+		lGender=new JLabel("Gender"+userId.getGender());
+		lStatus=new JLabel("Status"+userId.getActive());
 		setLayoutManager();
 		setLocationAndSize();
 		addComponentsToContainer();

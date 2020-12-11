@@ -19,13 +19,13 @@ public class AllEmployeeFrame extends JFrame {
 		ResultSet rst=stmt.executeQuery("select * from Employee");
 		while(rst.next())
 		{
-		    int a = rst.getInt("EmployeeId");
-		    String b = rst.getString("FirstName");
-		    String c = rst.getString("LastName");
-		    String d = rst.getString("Role");
-		    String e = rst.getString("Gender");
-		    String f = rst.getString("Active");
-		    model.addRow(new Object[]{a,b,c,d,e,f});
+		    int aa = rst.getInt("EmployeeId");
+		    String bb = rst.getString("FirstName");
+		    String cc = rst.getString("LastName");
+		    String dd = rst.getString("Role");
+		    String ee = rst.getString("Gender");
+		    String ff = rst.getString("Active");
+		    model.addRow(new Object[]{aa,bb,cc,dd,ee,ff});
 		    table.setModel(model);
 		    container=getContentPane();
 		    setLayoutManger();
@@ -35,7 +35,7 @@ public class AllEmployeeFrame extends JFrame {
 		    table.setBounds(10,10,800,900);
 		    this.setVisible(true);
 		    this.setBounds(10,10,800,900);
-		    this.setTitle("Employee Data");
+		    this.setTitle("Employee Table");
 		}
 	}
 	private void setLayoutManger() {

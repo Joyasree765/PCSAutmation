@@ -29,7 +29,7 @@ public class EntryClass {
 		char c='y';
 		BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
 		while(c=='y' || c=='Y') {
-			System.out.println("Enter the table name for performing CRUD operation(Employee/Skill/Job/EmpSkill/EmpJob): ");
+			System.out.println(" Employee,Skill,Job,EmpSkill,EmpJob: ");
 			TableName=reader.readLine();
 			if(TableName.equals("Employee")) {
 				EmploeeController empController=new EmploeeController();
@@ -104,7 +104,7 @@ public class EntryClass {
 							empController.deleteEmployee();
 							break;
 						case 8:
-							System.out.println("Following are all Employee Skill Details:");
+							System.out.println("Following  all Employee Skill Details:");
 							empController.getAllSkills();
 							break;
 						case 9:
@@ -181,7 +181,7 @@ public class EntryClass {
 					option=sc.nextInt();
 					switch(option) {
 						case 1:
-							System.out.println("Following are all Skill Details:");
+							System.out.println("Following  all Skill Details:");
 							skillController.getAllSkills();
 							break;
 						case 2:
@@ -215,7 +215,7 @@ public class EntryClass {
 							System.exit(0);
 							break;
 						default:
-							System.out.println("Wrong input");
+							System.out.println("input wrong");
 					}
 					System.out.println("Do you want to continue?(y/n)");
 					ch=sc.next().charAt(0);
@@ -238,7 +238,7 @@ public class EntryClass {
 					option=sc.nextInt();
 					switch(option) {
 						case 1:
-							System.out.println("Following are all Job Details:");
+							System.out.println("Following  all Job Details:");
 							jobController.getAllJob();
 							break;
 						case 2:

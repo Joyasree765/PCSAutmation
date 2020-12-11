@@ -55,7 +55,7 @@ public class EmploeeController extends JFrame {
 		else {
 			emp.setActive("Deactive");
 		}
-		//Calling dao method for insert record
+		
 		empDao.addEmployee(emp);
 	
 }
@@ -113,21 +113,7 @@ public class EmploeeController extends JFrame {
 			
 			empDao.deactivateEmployee(id);
 		
-	}
-	/*
-public void deactivateEmployee() {
-		try {
-			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
-			int id;
-			System.out.println("Enter EmployeeId whose record you want to deactivate:");
-			id=Integer.parseInt(reader.readLine());
-			Employee emp=empDao.getEmployeeById(id);
-			empDao.deactivateEmployee(emp);
-		}
-		catch(IOException ex) {
-			System.out.println(ex.getMessage());
-		}
-	}*/
+	}	
 	public void deleteEmployee() {
 		try {
 			BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));
@@ -144,9 +130,9 @@ public void deactivateEmployee() {
 		empDao.activateEmployee(id);
 		
 	}
-	IEmpJobDao ejb=new EmpJobDaolmpl();
+	IEmpJobDao ejob=new EmpJobDaolmpl();
 	public List<EmpJob> getAllEmpJob(){
-		 List<EmpJob> allEmpJoblist=ejb.getAllEmpJob();
+		 List<EmpJob> allEmpJoblist=ejob.getAllEmpJob();
 		 for(EmpJob ejb:allEmpJoblist) {
 				System.out.println(ejb);
 			}
@@ -159,13 +145,13 @@ public void deactivateEmployee() {
 		emp.setEmployeeId(s1);
 		emp.setRecruited(s3);
 		emp.setJobId(s2);
-		ejb.addEmpJob(emp);
+		ejob.addEmpJob(emp);
 	
 }
-	public EmpJob getEmpJobById(String ejId) {
+	public EmpJob getEmpJobById(String empjId) {
 		int id;
-		id=Integer.parseInt(ejId);
-		EmpJob emp=ejb.getEmpJobById(id);
+		id=Integer.parseInt(empjId);
+		EmpJob emp=ejob.getEmpJobById(id);
 		System.out.println(emp);
 			return emp;
 		
@@ -178,14 +164,14 @@ public void deactivateEmployee() {
 			String recruited, confirm;
 			System.out.println("Enter EmpJobId whose record you want to update:");
 			id=Integer.parseInt(reader.readLine());
-			EmpJob emp=ejb.getEmpJobById(id);
-			System.out.println("Enter yes if recruited:");
+			EmpJob emp=ejob.getEmpJobById(id);
+			System.out.println("Enter   recruited:");
 			recruited=reader.readLine();
-			System.out.println("Re-enter yes if recruited:");
+			System.out.println("Re-enter  recruited:");
 			confirm=reader.readLine();
 			if(recruited.equals(confirm)) {
 				emp.setRecruited(recruited);
-				ejb.updateEmpJob(emp);
+				ejob.updateEmpJob(emp);
 			}
 			else {
 				System.out.println("Sorry! you have entered different!");
@@ -211,7 +197,7 @@ public void deactivateEmployee() {
 			int id;
 			System.out.println("Enter EmpJobId whose record you want to delete:");
 			id=Integer.parseInt(reader.readLine());
-			ejb.deleteEmpJob(id);
+			ejob.deleteEmpJob(id);
 		}
 		catch(IOException ex) {
 			System.out.println(ex.getMessage());

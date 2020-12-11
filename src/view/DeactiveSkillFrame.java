@@ -17,9 +17,9 @@ public class DeactiveSkillFrame extends JFrame{
 	public  void DeactivateSkillFrame() throws ClassNotFoundException, SQLException{
 		container=getContentPane();
 		f=new JFrame();
-		lSkillId=new JLabel("ENTER SKILL ID");
+		lSkillId=new JLabel("Enter Skill Id");
 		tSkillId=new JTextField();
-		bDeactivate=new JButton("DEACTIVATE");
+		bDeactivate=new JButton("Deactivate");
 		skiController=new SkillController();
 		
 		bDeactivate.addActionListener(new ActionListener() {
@@ -38,7 +38,7 @@ public class DeactiveSkillFrame extends JFrame{
 		this.setTitle("Deactivate Skill");
 		this.setVisible(true);
 		this.setBounds(10,10,500,600);
-		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 	}
 	

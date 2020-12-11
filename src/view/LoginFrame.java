@@ -16,7 +16,7 @@ public class LoginFrame extends JFrame {
 	JTextField tUserId;
 	JPasswordField tPassword;
 	JButton bLogin, bRegister;
-	//JCheckBox cShowPassword;
+	JCheckBox cShowPassword;
 	EmploeeController empController=null;
 	public LoginFrame() throws ClassNotFoundException, SQLException {
 		container=getContentPane();
@@ -43,7 +43,7 @@ public class LoginFrame extends JFrame {
 				password=new String(tPassword.getPassword());
 				
 				
-				//System.out.println(emp.getPassword()+" "+userId+password);
+				System.out.println(emp.getPassword()+" "+userId+password);
 				emp=empController.checkLogin(userId, password);
 				//System.out.println(emp.getRole());
 				if(emp==null) {
@@ -93,7 +93,7 @@ public class LoginFrame extends JFrame {
 			}
 			
 		});
-		//cShowPassword=new JCheckBox("Show Password");
+		cShowPassword=new JCheckBox("Show Password");
 		setLayoutManager();
 		setLocationAndSize();
 		addComponentsToContainer();

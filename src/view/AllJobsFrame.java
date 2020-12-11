@@ -24,15 +24,15 @@ public class AllJobsFrame extends JFrame{
 		ResultSet rst=stmt.executeQuery("select * from Job");
 		while(rst.next())
 		{
-		    int a = rst.getInt("JobId");
-		    String b = rst.getString("JobTitle");
-		    String c = rst.getString("JobDescription");
-		    String d = rst.getString("CompanyName");
-		    String e = rst.getString("Location");
-		    String f = rst.getString("KeySkill");
-		    String g = rst.getString("Salary");
-		    String h = rst.getString("Activate");
-		    model.addRow(new Object[]{a,b,c,d,e,f,g,h});
+		    int aa = rst.getInt("JobId");
+		    String bb = rst.getString("JobTitle");
+		    String cc = rst.getString("JobDescription");
+		    String dd = rst.getString("CompanyName");
+		    String ee = rst.getString("Location");
+		    String ff = rst.getString("KeySkill");
+		    String gg = rst.getString("Salary");
+		    String hh = rst.getString("Activate");
+		    model.addRow(new Object[]{aa,bb,cc,dd,ee,ff,gg,hh});
 		    table.setModel(model);
 		    container=getContentPane();
 		    container.setLayout(null);
@@ -42,7 +42,7 @@ public class AllJobsFrame extends JFrame{
 		    table.setBounds(10,10,800,900);
 		    this.setVisible(true);
 		    this.setBounds(10,10,800,900);
-		    this.setTitle("Job Data");
+		    this.setTitle("Job Table");
 		}
 
 	}
