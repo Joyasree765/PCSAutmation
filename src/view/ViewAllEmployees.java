@@ -1,57 +1,49 @@
 package view;
-import java.awt.Container;
-
 import java.sql.SQLException;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-
+import java.util.ArrayList;
+import javax.swing.*;
 import controller.EmploeeController;
 import model.Employee;
 
 public class ViewAllEmployees extends JFrame {
 	private EmploeeController empController;
-	JLabel lEmpId,lName,lUserId,lRole,lGender,lStatus;
-	Container container=null;
-	public ViewAllEmployees(Employee userId) {
-		container=getContentPane();
-		lEmpId=new JLabel("Employee Id  "+userId.getEmpId());
-		lName=new JLabel("Name  "+userId.getFirstName()+""+userId.getLastName());
-		lUserId=new JLabel("User Id "+userId.getUserId());
-		lRole=new JLabel("Designation"+userId.getRole());
-		lGender=new JLabel("Gender"+userId.getGender());
-		lStatus=new JLabel("Status"+userId.getActive());
-		setLayoutManager();
-		setLocationAndSize();
-		addComponentsToContainer();
-		this.setTitle("Profile view Of "+userId.getFirstName()+userId.getLastName());
-		this.setVisible(true);
-		this.setBounds(10,10,500,500);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setResizable(false);
+	JTextArea taEmployeeDetails;
+	JFrame frame;
+	public ViewAllEmployees() throws ClassNotFoundException, SQLException
+	{
+		empController=new EmploeeController();
+		taEmployeeDetails=new JTextArea();
+	    frame=new JFrame("Employee Details");
+	    
+	    frame.add(taEmployeeDetails);
+		frame.setVisible(true);
+		frame.setSize(1000,1000);
+		frame.setDefaultCloseOperation(JFrame.NORMAL);
+		frame.setResizable(false);
+		frame.setLocationRelativeTo(null);
+		frame.setLayout(null);
+		taEmployeeDetails.setBounds(10,30,900,800);
+		taEmployeeDetails.setEditable(false);
+	}
 	
-	}
-	private void addComponentsToContainer() {
-		container.add(lEmpId);
-		container.add(lName);
-		container.add(lUserId);
-		container.add(lRole);
-		container.add(lGender);
-		container.add(lStatus);
-		
-	}
-	private void setLocationAndSize() {
-		lEmpId.setBounds(30, 150, 100, 30);
-		lName.setBounds(30, 200, 100, 30);
-		lUserId.setBounds(30, 250, 100, 30);
-		lRole.setBounds(30, 300, 100, 30);
-		lGender.setBounds(30,350,100,30);
-		lStatus.setBounds(30,400,100,30);
-		
-	}
-	private void setLayoutManager() {
-		container.setLayout(null);
-		
+	public void showEmployeeData()
+	{
+		ArrayList<Employee> data= empController.getAllEmployees();
+		String temp = "";
+		int s1;
+		String s2,s3,s4,s5,s6;
+		temp +="Employee Id \t Name \t Gender \t Designation \t Status \t \n";
+		for(Employee emp:data)
+		{
+			s1=emp.getEmpId();
+			s2=emp.getFirstName();
+			s3=emp.getLastName();
+			s4=emp.getGender();
+			s5=emp.getRole();
+			s6=emp.getActive();
+			temp +=s1+ " \t " +s2+" "+s3+" \t " +s4+" \t " +s5+ " \t "+s6 + "\n";	
+		}
+		taEmployeeDetails.setText(temp);
 	}
 
 }
